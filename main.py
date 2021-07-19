@@ -1,19 +1,21 @@
 from wifiInformation import WifiInformation
+from wifiController import WifiController
 
 if __name__ == '__main__':
-    wifiInfo = WifiInformation()
-    wifiInterfaces = wifiInfo.getInterfaces()
 
-    for interface_count in range(0, len(wifiInterfaces)):
-        print(str(interface_count) + ": " + str(wifiInterfaces[interface_count]))
-    device = 0
-    device_not_selected = True
-    while device_not_selected:
-        device = int(input("Select one of these devices: "))
-        if device < len(wifiInterfaces):
-            device_not_selected = False
+    wifiController = WifiController()
 
-    print("Scan of AP's starts now:")
+    wifiController.init_interfaces()
+    wifiController.print_interfaces()
+
+    wifiController.select_set_interface()
+    wifiController.scan_for_aps_and_store_ssid()
+    wifiController.print_all_ap_ssid()
+    wifiController.select_set_ap()
+    wifiController.set_key_management_mode()
+    wifiController.print_key_management_mode()
+    
+    """
     result_ap_list = wifiInfo.getAPs(device)
     for ap_count in range(0, len(result_ap_list)):
         print(str(ap_count) + ": " + result_ap_list[ap_count])
@@ -28,3 +30,4 @@ if __name__ == '__main__':
 
     ap_ssid = result_ap_list[ap]
     print("Wifi encryption: " + wifiInfo.get_key_management_mode_of_ssid(ap_ssid))
+    print("Wifi cipher type: " + wifiInfo.get_cipher_type_of_ssid(ap_ssid))"""
